@@ -23,7 +23,7 @@ fi
 # Extraction des informations avec readelf
 magic_number=$(hexdump -n 16 -e '16/1 "%02x "' "$file_name")
 class=$(readelf -h "$file_name" | grep "Class:" | awk '{print $2, $3}')
-byte_order=$(readelf -h "$file_name" | grep "Data:" | awk '{print $NF-1, $NF}')
+byte_order=$(readelf -h "$file_name" | grep "Data:" | awk '{print $(NF-1), $NF}' | sed 's/,//g')
 entry_point_address=$(readelf -h "$file_name" | grep "Entry point address:" | awk '{print $4}')
 
 # Inclure messages.sh pour formater l'affichage
