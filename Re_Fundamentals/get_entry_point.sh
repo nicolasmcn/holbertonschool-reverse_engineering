@@ -8,13 +8,13 @@ fi
 
 file_name="$1"
 
-# Véri si le fichier existe
+# Vérfication si le fichier existe
 if [ ! -f "$file_name" ]; then
     echo "Error: File '$file_name' not found!"
     exit 1
 fi
 
-# Véri si le fichier est un ELF
+# Vérf si le fichier est un ELF
 if ! file "$file_name" | grep -q "ELF"; then
     echo "Error: '$file_name' is not an ELF file!"
     exit 1
@@ -23,7 +23,7 @@ fi
 # Extraction des informations avec readelf
 magic_number=$(hexdump -n 16 -e '16/1 "%02x "' "$file_name")
 class=$(readelf -h "$file_name" | grep "Class:" | awk '{print $2, $3}')
-byte_order=$(readelf -h "$file_name" | grep "Data:" | awk '{print $(NF-1), $NF}' | sed 's/,//g')
+byte_order=$(readelf -h "$file_name" | grep "Data:" | awk '{print $(NF-1), $NF}' | sed 's/,//g' | xargs)
 entry_point_address=$(readelf -h "$file_name" | grep "Entry point address:" | awk '{print $4}')
 
 # Inclure messages.sh pour formater l'affichage
