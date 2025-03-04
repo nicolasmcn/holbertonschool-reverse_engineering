@@ -1,1 +1,1 @@
-readelf -S task1 | grep .rodata | awk '{print }'
+readelf -S task1 | grep .hbtn-custom | awk '{print }'
