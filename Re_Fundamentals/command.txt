@@ -1,1 +1,1 @@
-readelf -S task1 | grep .hbtn-custom | awk '{print }'
+readelf -d task2 | grep NEEDED | awk '{print }' | tr -d '[]'
